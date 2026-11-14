@@ -3,13 +3,13 @@ SELECT z.id, z.data_zamowienia, z.status, k.imie, k.nazwisko
 FROM zamowienia z
 JOIN klienci k ON z.klient_id = k.id;
 
---Zad.2
+-- Zad.2
 SELECT k.nazwa, AVG(p.cena)
 FROM produkty p
 JOIN kategorie k ON k.id = p.kategoria_id
 GROUP BY k.nazwa;
 
---Zad.3
+-- Zad.3
 SELECT k.imie, k.nazwisko, SUM(pz.ilosc * pz.cena_jednostkowa) AS wydatki 
 FROM pozycje_zamowien pz
 JOIN zamowienia z ON z.id = pz.zamowienie_id
@@ -18,25 +18,25 @@ GROUP BY k.id, k.imie, k.nazwisko
 ORDER BY wydatki DESC
 LIMIT 5;
 
---Zad.4
+-- Zad.4
 SELECT k.nazwa, COUNT(p.id)
 FROM kategorie k
 JOIN produkty p ON p.kategoria_id = k.id
 GROUP BY k.id, k.nazwa
 HAVING COUNT(p.id)>5
 
---Zad.5
+-- Zad.5
 SELECT p.nazwa
 FROM produkty p
 LEFT JOIN pozycje_zamowien pz ON pz.produkt_id = p.id
 WHERE pz.produkt_id IS NULL;
 
---Zad.6
+-- Zad.6
 SELECT status, COUNT(id) AS liczba_zamowien
 FROM zamowienia
 GROUP BY status;
 
---Zad.7
+-- Zad.7
 SELECT p.imie, p.nazwisko, COUNT(z.pracownik_id) AS ilosc_obsluzonych_zamowien
 FROM pracownicy p
 JOIN zamowienia z ON z.pracownik_id = p.id
